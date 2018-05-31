@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "aws-sdk": "^2.249.1",
-    "claudia-api-builder": "^4.0.2"
+    "claudia-api-builder": "^4.0.2",
+    "jquery": "^3.3.1"
   }
 }

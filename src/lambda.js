@@ -1,16 +1,19 @@
 const ApiBuilder = require('claudia-api-builder'),
-    AWS = require('aws-sdk');
+const AWS = require('aws-sdk');
+
 var api = new ApiBuilder(),
-    dynamoDb = new AWS.DynamoDB.DocumentClient();
+var dynamoDb = new AWS.DynamoDB.DocumentClient();
 
 api.post('/reports', function (request) { // SAVE your report
     var params = {
         TableName: 'reports',
         Item: {
-            reportId: request.body.reportId,
-            input_fields: request.body.input_fields // your report name
+            id: request.body.reportId,
+            input_fields: request.body.input_fields, // your report name
+            results: request.body.results
         }
     }
+    
     return dynamoDb.put(params).promise(); // returns dynamo result
 }, { success: 201 }); // returns HTTP status 201 - Created if successful
 
