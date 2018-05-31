@@ -4,11 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-     "test": "jasmine" 
+    "watch": "./node_modules/.bin/nodemon --ext --exec ./node_modules/.bin/jasmine",
+    "test": "jasmine "
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "jasmine": "^3.1.0"
+    "jasmine": "^3.1.0",
+    "nodemon": "^1.17.5"
   }
 }
