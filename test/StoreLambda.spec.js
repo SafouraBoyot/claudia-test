@@ -1,14 +1,13 @@
  $ = require("jquery");
 
 var api = require("../src/lambda")
-var dynamoDb = new AWS.DynamoDB.DocumentClient();
+
+
 
 describe("Store Lambda", () => {
 
 	beforeEach(function() {
 	    jasmine.Ajax.install();
-
-	    spyOn(dynamoDb);
     });
 
     afterEach(function() {
