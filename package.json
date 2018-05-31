@@ -4,12 +4,15 @@
   "description": "",
   "main": "lambda.ja",
   "scripts": {
+    "create": "claudia create --version dev --region us-east-1 --api-module api",
+    "deploy": "claudia update --version dev --region us-east-1 --api-module api",
     "watch": "./node_modules/.bin/nodemon --ext --exec ./node_modules/.bin/jasmine",
     "test": "jasmine "
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "claudia": "^4.0.0",
     "jasmine": "^3.1.0",
     "nodemon": "^1.17.5"
   },
