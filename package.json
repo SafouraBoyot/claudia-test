@@ -2,7 +2,7 @@
   "name": "claudia-test",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "lambda.ja",
   "scripts": {
     "watch": "./node_modules/.bin/nodemon --ext --exec ./node_modules/.bin/jasmine",
     "test": "jasmine "
@@ -12,5 +12,9 @@
   "devDependencies": {
     "jasmine": "^3.1.0",
     "nodemon": "^1.17.5"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.249.1",
+    "claudia-api-builder": "^4.0.2"
   }
 }
