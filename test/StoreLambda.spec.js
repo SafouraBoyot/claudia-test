@@ -1,8 +1,11 @@
-var $ = require('jquery');
-AWS = require('aws-sdk');
-
-var api = require("../src/lambda")
-	dynamoDb = new AWS.DynamoDB.DocumentClient();
+require("jsdom").env("", function(err, window) {
+    if (err) {
+        console.error(err);
+        return;
+    }
+ 
+    var $ = require("jquery")(window);
+});
 
 describe("Store Lambda", function() {
 
@@ -14,7 +17,7 @@ describe("Store Lambda", function() {
 		}
 
 		console.log("AJAX")
-		console.log($.ajax)
+		console.log($.ajax({}))
 
 		// $.ajax({
 		// 	type: "POST",

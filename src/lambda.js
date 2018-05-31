@@ -1,10 +1,10 @@
-var ApiBuilder = require('claudia-api-builder'),
-    AWS = require('aws-sdk');
+import API from 'claudia-api-builder'
+import AWS from 'aws-sdk';
 
-var api = new ApiBuilder(),
+const api = new API(),
     dynamoDb = new AWS.DynamoDB.DocumentClient();
 
-api.post('/reports', function (request) { // SAVE your report
+api.post('/reports', (request) => { // SAVE your report
     var params = {
         TableName: 'reports',
         Item: {
@@ -17,7 +17,7 @@ api.post('/reports', function (request) { // SAVE your report
     return dynamoDb.put(params).promise(); // returns dynamo result
 }, { success: 201 }); // returns HTTP status 201 - Created if successful
 
-api.get('/reports', function (request) { // GET all users
+api.get('/reports', (request) => { // GET all users
     return dynamoDb.scan({ TableName: 'reports' }).promise()
         .then(response => response.Items)
 });
