@@ -11,7 +11,15 @@
   },
   "author": "",
   "license": "ISC",
+  "files": {
+    "name": "using-babel",
+    "version": "1.0.0",
+    "files": [ "dist" ],
+    "license": "MIT"
+  },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
     "claudia": "^4.0.0",
     "jasmine": "^3.1.0",
     "nodemon": "^1.17.5"

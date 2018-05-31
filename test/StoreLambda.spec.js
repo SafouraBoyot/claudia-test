@@ -1,40 +1,32 @@
- $ = require("jquery");
+var $ = require('jquery');
+AWS = require('aws-sdk');
 
 var api = require("../src/lambda")
-var dynamoDb = new AWS.DynamoDB.DocumentClient();
+	dynamoDb = new AWS.DynamoDB.DocumentClient();
 
-describe("Store Lambda", () => {
+describe("Store Lambda", function() {
 
-	beforeEach(function() {
-	    jasmine.Ajax.install();
-
-	    spyOn(dynamoDb);
-    });
-
-    afterEach(function() {
-    	jasmine.Ajax.uninstall();
-    })
-
-	it("calls DynamoDB with the data provided by the Ajax request", () => {
-		let	data = {
-				reportId: "123",
-				input_fields: "input-fields",
-				results: "results"
-		}
-		const ajaxCall = {
-			"Content-Type": "application/json",
-			type: "POST",
-			url: "https://zgapooq1zi.execute-api.us-east-1.amazonaws.com/latest/reports",
-			data: data
-		}
-		const expectedParams = {
-			TableName: 'reports',
-			Item: data		
+	it("calls DynamoDB with the data provided by the Ajax request", function() {
+		var	data = {
+			reportId: "123",
+			input_fields: "input-fields",
+			results: "results"
 		}
 
-		$.ajax(ajaxCall);
+		console.log("AJAX")
+		console.log($.ajax)
 
-		expect(dynamoDb.put).toHaveBeenCalledWith(expectedParams);
+		// $.ajax({
+		// 	type: "POST",
+		// 	url: "https://zgapooq1zi.execute-api.us-east-1.amazonaws.com/latest/reports",
+		// 	data: data,
+		// 	contentType: "application/json",
+		// 	success: function() {
+		// 		console.log("Success");
+		// 	}
+		// }).then(function(result) {
+		// 	console.log(result);
+		// })
 	})
 
 })
