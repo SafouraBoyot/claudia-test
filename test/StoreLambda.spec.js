@@ -7,6 +7,9 @@ require("jsdom").env("", function(err, window) {
     var $ = require("jquery")(window);
 });
 
+var $ = require('jquery');
+AWS = require('aws-sdk');
+
 describe("Store Lambda", function() {
 
 	it("calls DynamoDB with the data provided by the Ajax request", function() {
