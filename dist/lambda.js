@@ -34,4 +34,21 @@ api.get('/reports', function (request) {
     });
 });
 
+api.get('/reports/{id}', function (request) {
+    'use strict';
+
+    var id, params;
+    id = request.pathParams.id;
+
+    params = {
+        TableName: 'reports',
+        Key: {
+            reportId: id
+        }
+    };
+    return dynamoDb.get(params).promise().then(function (response) {
+        return response.Item;
+    });
+});
+
 module.exports = api;

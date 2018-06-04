@@ -6,7 +6,7 @@ describe("Store Lambda", function() {
 	it("calls DynamoDB with the data provided by the Ajax request", function(done) {
 		const url = "https://y77j5js7md.execute-api.us-east-1.amazonaws.com/dev/reports"
 		const postData = {
-			reportId: "123",
+			reportId: "123345",
 			input_fields: "input-fields",
 		}
 
