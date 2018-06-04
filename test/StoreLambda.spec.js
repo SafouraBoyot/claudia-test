@@ -1,4 +1,6 @@
-import { $,jQuery } from 'jquery';
+// import { $,jQuery } from 'jquery';
+const $=require ('jquery');
+const jQuery=require ('jquery');
 // export for others scripts to use
 window.$ = $;
 window.jQuery = jQuery;
@@ -9,7 +11,6 @@ describe("Store Lambda", () => {
 		var	data = {
 			reportId: "123",
 			input_fields: "input-fields",
-			results: "results"
 		}
 
 		$.ajax({
