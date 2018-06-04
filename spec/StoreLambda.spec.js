@@ -5,7 +5,7 @@ describe("Store Lambda", function() {
 
 	it("calls DynamoDB with the data provided by the Ajax request", function(done) {
 		const pstUrl = "https://y77j5js7md.execute-api.us-east-1.amazonaws.com/dev/reports"
-		const reportId ="123345"
+		const reportId = "123345"
 		const postData = {
 			reportId: reportId,
 			input_fields: "input-fields",
@@ -22,9 +22,10 @@ describe("Store Lambda", function() {
 			done();
 		})
 
-		const getUrl ="https://y77j5js7md.execute-api.us-east-1.amazonaws.com/dev/reports/"+reportId
+		const getUrl = "https://y77j5js7md.execute-api.us-east-1.amazonaws.com/dev/reports/"+reportId
+		
 		request.get(getUrl, function(err, res, body) {
-			expect(body).toBe([postData.toString()]);
+			expect(body).toBe(postData.toString());
 			done();
 		})
 	})
