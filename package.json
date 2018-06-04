@@ -8,7 +8,7 @@
     "create": "npm run transpile && claudia create --version dev --region us-east-1 --api-module dist/lambda --policies policy",
     "deploy": "npm run transpile && claudia update --version dev --region us-east-1 --api-module dist/lambda --policies policy",
     "watch": "./node_modules/.bin/nodemon --ext --exec ./node_modules/.bin/jasmine",
-    "test": "jasmine"
+    "test": "./node_modules/.bin/babel-node ./node_modules/.bin/jasmine"
   },
   "files": [
     "dist"
@@ -17,6 +17,7 @@
   "license": "ISC",
   "devDependencies": {
     "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
     "claudia": "^4.0.0",
     "jasmine": "^3.1.0",
     "jquery": "^3.3.1",
@@ -25,7 +26,6 @@
   },
   "dependencies": {
     "aws-sdk": "^2.249.1",
-    "babel-preset-env": "^1.7.0",
     "claudia-api-builder": "^4.0.2"
   }
 }

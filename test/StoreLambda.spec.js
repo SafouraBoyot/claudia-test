@@ -1,39 +1,25 @@
-require("jsdom").env("", function(err, window) {
-    if (err) {
-        console.error(err);
-        return;
-    }
- 
-    var $ = require("jquery")(window);
-});
+import { $,jQuery } from 'jquery';
+// export for others scripts to use
+window.$ = $;
+window.jQuery = jQuery;
 
-var $ = require('jquery');
-AWS = require('aws-sdk');
+describe("Store Lambda", () => {
 
-
-describe("Store Lambda", function() {
-
-	it("calls DynamoDB with the data provided by the Ajax request", function() {
+	it("calls DynamoDB with the data provided by the Ajax request", () => {
 		var	data = {
 			reportId: "123",
 			input_fields: "input-fields",
 			results: "results"
 		}
 
-		console.log("AJAX")
-		console.log($.ajax({}))
-
-		// $.ajax({
-		// 	type: "POST",
-		// 	url: "https://zgapooq1zi.execute-api.us-east-1.amazonaws.com/latest/reports",
-		// 	data: data,
-		// 	contentType: "application/json",
-		// 	success: function() {
-		// 		console.log("Success");
-		// 	}
-		// }).then(function(result) {
-		// 	console.log(result);
-		// })
+		$.ajax({
+			type: "POST",
+			url: "https://y77j5js7md.execute-api.us-east-1.amazonaws.com/dev/reports",
+			data: data,
+			contentType: "application/json",
+			success: () => console.log("Success")
+		}).then((result) => {
+			expect(result).toBe([data])
+		})
 	})
-
 })

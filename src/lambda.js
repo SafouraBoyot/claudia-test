@@ -1,8 +1,8 @@
-import API from 'claudia-api-builder'
+import API from 'claudia-api-builder';
 import AWS from 'aws-sdk';
 
-const api = new API(),
-    dynamoDb = new AWS.DynamoDB.DocumentClient();
+const   api = new API(),
+        dynamoDb = new AWS.DynamoDB.DocumentClient();
 
 api.post('/reports', (request) => { // SAVE your report
     var params = {
