@@ -4,9 +4,10 @@ const request = require('request');
 describe("Store Lambda", function() {
 
 	it("calls DynamoDB with the data provided by the Ajax request", function(done) {
-		const url = "https://y77j5js7md.execute-api.us-east-1.amazonaws.com/dev/reports"
+		const pstUrl = "https://y77j5js7md.execute-api.us-east-1.amazonaws.com/dev/reports"
+		const reportId ="123345"
 		const postData = {
-			reportId: "123345",
+			reportId: reportId,
 			input_fields: "input-fields",
 		}
 
@@ -14,15 +15,16 @@ describe("Store Lambda", function() {
   			method: 'post',
   			body: postData,
   			json: true,
-  			url: url
+  			url: pstUrl
 		}
 
 		request(options, function(err, res) {
 			done();
 		})
 
-		request.get(url, function(err, res, body) {
-			expect(body).toBe([postData]);
+		const getUrl ="https://y77j5js7md.execute-api.us-east-1.amazonaws.com/dev/reports/"+reportId
+		request.get(getUrl, function(err, res, body) {
+			expect(body).toBe([postData.toString()]);
 			done();
 		})
 	})
