@@ -8,9 +8,9 @@ api.post('/reports', (request) => { // SAVE your report
     var params = {
         TableName: 'reports',
         Item: {
-            id: request.body.reportId,
+            reportId: request.body.reportId,
             input_fields: request.body.input_fields, // your report name
-            results: request.body.results
+
         }
     }
 

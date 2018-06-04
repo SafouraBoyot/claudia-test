@@ -18,9 +18,9 @@ api.post('/reports', function (request) {
     var params = {
         TableName: 'reports',
         Item: {
-            id: request.body.reportId,
-            input_fields: request.body.input_fields, // your report name
-            results: request.body.results
+            reportId: request.body.reportId,
+            input_fields: request.body.input_fields // your report name
+
         }
     };
 
