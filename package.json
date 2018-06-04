@@ -5,8 +5,10 @@
   "main": "lambda.js",
   "scripts": {
     "transpile": "babel --presets env src --out-dir dist",
-    "create": "npm run transpile && claudia create --version dev --region us-east-1 --api-module dist/lambda --policies policy",
-    "deploy": "npm run transpile && claudia update --version dev --region us-east-1 --api-module dist/lambda --policies policy",
+    "createDev": "npm run transpile && claudia create --version dev --region us-east-1 --api-module dist/lambda --policies policy",
+    "updateDev": "npm run transpile && claudia update --version dev --region us-east-1 --api-module dist/lambda --policies policy",
+    "createProd": "npm run transpile && claudia create --version latest --region us-east-1 --api-module dist/lambda --policies policy",
+    "updateProd": "npm run transpile && claudia update --version latest --region us-east-1 --api-module dist/lambda --policies policy",
     "watch": "./node_modules/.bin/nodemon --ext --exec ./node_modules/.bin/jasmine",
     "test": "babel-node ./node_modules/.bin/jasmine"
   },
