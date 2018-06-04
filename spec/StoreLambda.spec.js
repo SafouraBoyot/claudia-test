@@ -4,27 +4,25 @@ const request = require('request');
 describe("Store Lambda", function() {
 
 	it("calls DynamoDB with the data provided by the Ajax request", function(done) {
-		const endpoint = "https://y77j5js7md.execute-api.us-east-1.amazonaws.com/dev/reports"
-		const reportData = {
+		const url = "https://y77j5js7md.execute-api.us-east-1.amazonaws.com/dev/reports"
+		const postData = {
 			reportId: "123",
 			input_fields: "input-fields",
 		}
 
-		const data = [
-			{
-				'content-type': 'application/json',
-                body: reportData
-			}	
-		]
+		const options = {
+  			method: 'post',
+  			body: postData,
+  			json: true,
+  			url: url
+		}
 
-		console.log(JSON.stringify(data));
-
-		request.post(endpoint, {json: true, data: data}, function(err, res) {
+		request(options, function(err, res) {
 			done();
 		})
 
-		request.post(endpoint, function(err, res) {
-			expect(res.body).toBe([data]);
+		request.get(url, function(err, res, body) {
+			expect(body).toBe([postData]);
 			done();
 		})
 	})
