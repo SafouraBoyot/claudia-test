@@ -1,11 +1,10 @@
 const request = require('request');
-// export for others scripts to use
 
-describe("Store Lambda", function() {
-
-	it("it stores and retrieves a report", function(done) {
+describe("Store Lambda", function () {
+    
+	it("calls DynamoDB with the data provided by the Ajax request", function(done) {
 		const postUrl = "https://y77j5js7md.execute-api.us-east-1.amazonaws.com/dev/reports"
-		const reportId = "123345"
+		const reportId ="123345"
 		const postData = {
 			reportId: reportId,
 			input_fields: "input-fields",
@@ -18,9 +17,9 @@ describe("Store Lambda", function() {
   			url: postUrl
 		}
 
-		request(options, function(err, res) {
-			done();
-		})
+        request(options, function (err, res) {
+            done();
+        })
 
 		const getUrl = `https://y77j5js7md.execute-api.us-east-1.amazonaws.com/dev/reports/${reportId}`;
 		
@@ -28,5 +27,5 @@ describe("Store Lambda", function() {
 			expect(body).toBe(JSON.stringify(postData));
 			done();
 		})
-	})
+    })
 })
