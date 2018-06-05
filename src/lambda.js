@@ -4,8 +4,8 @@ import AWS from 'aws-sdk';
 const api = new API();
 var dynamoDb = new AWS.DynamoDB.DocumentClient();
 
-const assignDatabase = (database) => {
-    dynamoDb = database;
+const assignDatabase = (databaseClient) => {
+    dynamoDb = databaseClient;
 }
 
 api.post('/reports', (request) => { 

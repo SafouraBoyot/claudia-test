@@ -1,7 +1,7 @@
 const request = require('request');
 
 describe("Store Lambda", function () {
-    
+
 	it("calls DynamoDB with the data provided by the Ajax request", function(done) {
 		const postUrl = "https://y77j5js7md.execute-api.us-east-1.amazonaws.com/dev/reports"
 		const reportId ="123345"
@@ -22,7 +22,7 @@ describe("Store Lambda", function () {
         })
 
 		const getUrl = `https://y77j5js7md.execute-api.us-east-1.amazonaws.com/dev/reports/${reportId}`;
-		
+
 		request.get(getUrl, function(err, res, body) {
 			expect(body).toBe(JSON.stringify(postData));
 			done();
