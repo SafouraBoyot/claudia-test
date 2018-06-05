@@ -11,5 +11,8 @@
       "Effect": "Allow",
       "Resource": "*"
     }
-  ]
+  ],
+  "SSEDescription": {
+    "Status": "ENABLED"
+  }
 }
