@@ -1,16 +1,15 @@
 const lambda = require('../dist/lambda');
 const underTest = lambda.api;
-const assignDatabase = lambda.assignDatabase;
+var assignDatabase = lambda.assignDatabase;
 
 const localDynamo = require('local-dynamo')
 
 localDynamo.launch(null, 4567);
 
-
+assignDatabase(localDynamo)
 
 describe('Store Lambda', () => {
 	var lambdaContextSpy;
-	assignDatabase(localDynamo);
 
 	beforeEach(() => {
 		lambdaContextSpy = jasmine.createSpyObj('lambdaContext', ['done']);

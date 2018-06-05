@@ -18,6 +18,8 @@ api.post('/reports', (request) => {
         }
     }
 
+    console.log(dynamoDb)
+
     return dynamoDb.put(params).promise(); 
 }, {success: 201}); 
 

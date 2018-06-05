@@ -27,6 +27,8 @@ api.post('/reports', function (request) {
         }
     };
 
+    console.log(dynamoDb);
+
     return dynamoDb.put(params).promise();
 }, { success: 201 });
 
