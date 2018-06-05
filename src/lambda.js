@@ -1,28 +1,31 @@
 import API from 'claudia-api-builder';
 import AWS from 'aws-sdk';
 
-const api = new API(),
-    dynamoDb = new AWS.DynamoDB.DocumentClient();
+const api = new API();
+var dynamoDb = new AWS.DynamoDB.DocumentClient();
 
-api.post('/reports', (request) => { // SAVE your report
+const assignDatabase = (database) => {
+    dynamoDb = database;
+}
+
+api.post('/reports', (request) => { 
     var params = {
         TableName: 'reports',
         Item: {
             reportId: request.body.reportId,
-            input_fields: request.body.input_fields, // your report name
+            input_fields: request.body.input_fields, 
 
         }
     }
 
-    return dynamoDb.put(params).promise(); // returns dynamo result
-}, {success: 201}); // returns HTTP status 201 - Created if successful
+    return dynamoDb.put(params).promise(); 
+}, {success: 201}); 
 
-api.get('/reports', (request) => { // GET all users
-    return dynamoDb.scan({TableName: 'reports'}).promise()
-        .then(response => response.Items)
+api.get('/reports', (request) => { 
+    return dynamoDb.scan({TableName: 'reports'}).promise().then(response => response.Items)
 });
 
-api.get('/reports/{id}', function (request) {
+api.get('/reports/{id}', (request) => {
     'use strict';
     var id, params;
     id = request.pathParams.id;
@@ -33,9 +36,8 @@ api.get('/reports/{id}', function (request) {
             reportId: id
         }
     };
-    return dynamoDb.get(params).promise().then(function (response) {
-        return response.Item;
-    });
+
+    return dynamoDb.get(params).promise().then(response => response.Item);
 });
 
-module.exports = api;
+module.exports = { api, assignDatabase };

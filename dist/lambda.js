@@ -10,25 +10,27 @@ var _awsSdk2 = _interopRequireDefault(_awsSdk);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var api = new _claudiaApiBuilder2.default(),
-    dynamoDb = new _awsSdk2.default.DynamoDB.DocumentClient();
+var api = new _claudiaApiBuilder2.default();
+var dynamoDb = new _awsSdk2.default.DynamoDB.DocumentClient();
+
+var assignDatabase = function assignDatabase(database) {
+    dynamoDb = database;
+};
 
 api.post('/reports', function (request) {
-    // SAVE your report
     var params = {
         TableName: 'reports',
         Item: {
             reportId: request.body.reportId,
-            input_fields: request.body.input_fields // your report name
+            input_fields: request.body.input_fields
 
         }
     };
 
-    return dynamoDb.put(params).promise(); // returns dynamo result
-}, { success: 201 }); // returns HTTP status 201 - Created if successful
+    return dynamoDb.put(params).promise();
+}, { success: 201 });
 
 api.get('/reports', function (request) {
-    // GET all users
     return dynamoDb.scan({ TableName: 'reports' }).promise().then(function (response) {
         return response.Items;
     });
@@ -46,9 +48,10 @@ api.get('/reports/{id}', function (request) {
             reportId: id
         }
     };
+
     return dynamoDb.get(params).promise().then(function (response) {
         return response.Item;
     });
 });
 
-module.exports = api;
+module.exports = { api: api, assignDatabase: assignDatabase };
