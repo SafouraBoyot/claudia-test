@@ -43,4 +43,12 @@ describe("Store Lambda", function () {
             });
 
     })
+
+    it("calls Lambda API to getting all the reports", function () {
+
+        const getUrl = "https://y77j5js7md.execute-api.us-east-1.amazonaws.com/dev/reports";
+        request.get(getUrl, function (err, res, body) {
+            expect(res.statusCode).toEqual(200);
+        })
+    })
 })
