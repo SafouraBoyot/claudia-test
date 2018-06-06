@@ -23,7 +23,7 @@ describe('Store Lambda', function () {
             lambdaContextSpy = jasmine.createSpyObj('lambdaContext', ['done']);
         });
 
-        it('it stores and retrieves a report', () => {
+        it('it stores a report', () => {
             underTest.proxyRouter({
                 requestContext: {
                     resourcePath: '/reports',
