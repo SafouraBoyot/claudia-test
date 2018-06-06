@@ -10,7 +10,7 @@ describe("Store Lambda", function () {
     }
 
     it("calls DynamoDB with the data provided by the Ajax request", function (done) {
-        const postUrl = "https://y77j5js7md.execute-api.us-east-1.amazonaws.com/dev/reports"
+        const postUri = "https://y77j5js7md.execute-api.us-east-1.amazonaws.com/dev/reports"
 
         const reportId = uuidv4()
         const postData = {
@@ -21,21 +21,26 @@ describe("Store Lambda", function () {
         const options = {
             method: 'post',
             body: postData,
+            uri: postUri,
             json: true,
-            url: postUrl
+            resolveWithFullResponse: true
+
         }
 
-        const getUrl = `https://y77j5js7md.execute-api.us-east-1.amazonaws.com/dev/reports/${reportId}`;
+        const getUri = `https://y77j5js7md.execute-api.us-east-1.amazonaws.com/dev/reports/${reportId}`;
 
-        request(options, function (err, res) {
-            expect(res.statusCode).toEqual(201)
+        requestPromise(options).then(function (response) {
+            expect(response.statusCode).toEqual(201)
 
-            request.get(getUrl, function (err, res, body) {
+            request.get(getUri, function (err, res, body) {
                 expect(res.statusCode).toEqual(200)
                 expect(body).toBe(JSON.stringify(postData));
                 done();
             })
         })
+            .catch(function (err) {
+                console.log(err)
+            });
 
     })
 })
