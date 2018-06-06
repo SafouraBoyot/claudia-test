@@ -14,6 +14,7 @@ AWS.config.update({
 });
 var documentClient = new AWS.DynamoDB.DocumentClient();
 
+<<<<<<< HEAD
 describe('Store Lambda', () => {
     var lambdaContextSpy;
     assignDatabase(documentClient);
@@ -49,6 +50,30 @@ describe('Store Lambda', () => {
             }
         }, lambdaContextSpy).then((err, res, body) => {
             expect(res.statusCode).toEqual(201)
+=======
+describe('Store Lambda', function () {
+
+        var lambdaContextSpy;
+        assignDatabase(documentClient);
+
+        beforeEach(() => {
+            lambdaContextSpy = jasmine.createSpyObj('lambdaContext', ['done']);
+        });
+
+        it('it stores and retrieves a report', () => {
+            underTest.proxyRouter({
+                requestContext: {
+                    resourcePath: '/reports',
+                    httpMethod: 'POST'
+                },
+                body: {
+                    reportId: 123456,
+                    input_fields: "input-fields"
+                }
+            }, lambdaContextSpy).then((err, res, body) => {
+                expect(res.statusCode).toEqual(201)
+            })
+>>>>>>> 6bd5f12418d4af1a8d908d5363d4e5e73df9a75c
         })
-    })
-})
+    }
+)

@@ -8,20 +8,22 @@ const assignDatabase = (databaseClient) => {
     dynamoDb = databaseClient;
 }
 
-api.post('/reports', (request) => { 
+api.post('/reports', (request) => {
     var params = {
         TableName: 'reports',
         Item: {
             reportId: request.body.reportId,
-            input_fields: request.body.input_fields, 
+            input_fields: request.body.input_fields,
 
         }
     }
 
-    return dynamoDb.put(params).promise(); 
-}, {success: 201}); 
+    console.log(dynamoDb)
 
-api.get('/reports', (request) => { 
+    return dynamoDb.put(params).promise();
+}, {success: 201});
+
+api.get('/reports', (request) => {
     return dynamoDb.scan({TableName: 'reports'}).promise().then(response => response.Items)
 });
 
@@ -40,4 +42,4 @@ api.get('/reports/{id}', (request) => {
     return dynamoDb.get(params).promise().then(response => response.Item);
 });
 
-module.exports = { api, assignDatabase };
+module.exports = {api, assignDatabase};
