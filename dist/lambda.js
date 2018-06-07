@@ -13,8 +13,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var api = new _claudiaApiBuilder2.default();
 var dynamoDb = new _awsSdk2.default.DynamoDB.DocumentClient();
 
-var assignDatabase = function assignDatabase(database) {
-    dynamoDb = database;
+var assignDatabase = function assignDatabase(databaseClient) {
+    dynamoDb = databaseClient;
 };
 
 api.post('/reports', function (request) {

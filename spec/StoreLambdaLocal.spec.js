@@ -1,4 +1,7 @@
-const lambda = require('../dist/lambda');
+const tools = require ('../src/tools.js');
+
+const lambda = require('../dist/lambda.js');
+const rp = require('request-promise');
 const underTest = lambda.api;
 var assignDatabase = lambda.assignDatabase;
 
@@ -9,13 +12,14 @@ localDynamo.launch(null, 4567);
 var AWS = require("aws-sdk");
 
 AWS.config.update({
-    region: "us-west-2",
-    endpoint: "http://localhost:8000"
+    apiVersion: "2012-08-10",
+    region: "eu-west-1",
+    endpoint: "http://localhost:4567"
 });
 var documentClient = new AWS.DynamoDB.DocumentClient();
 
-<<<<<<< HEAD
-describe('Store Lambda', () => {
+describe('Store Lambda', function () {
+
     var lambdaContextSpy;
     assignDatabase(documentClient);
 
@@ -23,57 +27,33 @@ describe('Store Lambda', () => {
         lambdaContextSpy = jasmine.createSpyObj('lambdaContext', ['done']);
     });
 
-    it('stores a report', () => {
+    it('it stores a report', () => {
+
+        const reportId =tools.uuidv4();
+        const postData = {
+            reportId: reportId,
+            input_fields: "input-fields",
+        }
         underTest.proxyRouter({
             requestContext: {
                 resourcePath: '/reports',
                 httpMethod: 'POST'
             },
-            body: {
-                reportId: 123456,
-                input_fields: "input-fields"
+            body:postData,
+            resolveWithFullResponse: true
+        }, lambdaContextSpy).then(() => {
+            expect(lambdaContextSpy.done).toHaveBeenCalledWith(null, jasmine.objectContaining({statusCode :201}));
+        })
+        underTest.proxyRouter({
+            requestContext: {
+                resourcePath: '/reports/{id}',
+                httpMethod: 'GET'
+            },
+            pathParameters: {
+                id: reportId
             }
-        }, lambdaContextSpy).then((err, res, body) => {
-            expect(res.statusCode).toEqual(201)
+        }, lambdaContextSpy).then(() => {
+            expect(lambdaContextSpy.done).toHaveBeenCalledWith(null, jasmine.objectContaining({body : postData}));
         })
     })
-
-    it('stores and retrieves multiple reports', () => {
-        underTest.proxyRouter({
-            requestContext: {
-                resourcePath: '/reports',
-                httpMethod: 'POST'
-            },
-            body: {
-                reportId: 123456,
-                input_fields: "input-fields"
-            }
-        }, lambdaContextSpy).then((err, res, body) => {
-            expect(res.statusCode).toEqual(201)
-=======
-describe('Store Lambda', function () {
-
-        var lambdaContextSpy;
-        assignDatabase(documentClient);
-
-        beforeEach(() => {
-            lambdaContextSpy = jasmine.createSpyObj('lambdaContext', ['done']);
-        });
-
-        it('it stores a report', () => {
-            underTest.proxyRouter({
-                requestContext: {
-                    resourcePath: '/reports',
-                    httpMethod: 'POST'
-                },
-                body: {
-                    reportId: 123456,
-                    input_fields: "input-fields"
-                }
-            }, lambdaContextSpy).then((err, res, body) => {
-                expect(res.statusCode).toEqual(201)
-            })
->>>>>>> 6bd5f12418d4af1a8d908d5363d4e5e73df9a75c
-        })
-    }
-)
+})
