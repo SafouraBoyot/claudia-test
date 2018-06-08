@@ -4,6 +4,7 @@ const requestPromise = require('request-promise');
 const tools = require ('../src/tools.js');
 
 
+
 describe("Store Lambda", function () {
 
 
@@ -25,6 +26,7 @@ describe("Store Lambda", function () {
 
         }
 
+
         const getUri = `https://y77j5js7md.execute-api.us-east-1.amazonaws.com/dev/reports/${reportId}`;
 
         requestPromise(options).then(function (response) {
@@ -41,7 +43,6 @@ describe("Store Lambda", function () {
             });
 
     })
-
     it("calls Lambda API to getting all the reports", function () {
 
         const getUrl = "https://y77j5js7md.execute-api.us-east-1.amazonaws.com/dev/reports";
