@@ -1,4 +1,5 @@
 const tools = require ('../src/tools.js');
+const dummyData = require('../dummy-data');
 
 const lambda = require('../dist/lambda.js');
 const rp = require('request-promise');
@@ -28,32 +29,32 @@ describe('Store Lambda', function () {
     });
 
     it('it stores a report', () => {
-
-        const reportId =tools.uuidv4();
-        const postData = {
-            reportId: reportId,
-            input_fields: "input-fields",
-        }
+        const reportId = "12345"//tools.uuidv4();
+        // const postData = {
+        //     reportId: reportId,
+        //     input_fields: "input-fields",
+        // }
         underTest.proxyRouter({
             requestContext: {
                 resourcePath: '/reports',
                 httpMethod: 'POST'
             },
-            body:postData,
+            body: dummyData,
             resolveWithFullResponse: true
         }, lambdaContextSpy).then(() => {
             expect(lambdaContextSpy.done).toHaveBeenCalledWith(null, jasmine.objectContaining({statusCode :201}));
+                underTest.proxyRouter({
+                    requestContext: {
+                        resourcePath: '/reports/{id}',
+                        httpMethod: 'GET'
+                    },
+                    pathParameters: {
+                        id: reportId
+                    }
+                }, lambdaContextSpy).then(() => {
+                    expect(lambdaContextSpy.done).toHaveBeenCalledWith(null, 
+                        jasmine.objectContaining({body : dummyData}));
+                })
+            })
         })
-        underTest.proxyRouter({
-            requestContext: {
-                resourcePath: '/reports/{id}',
-                httpMethod: 'GET'
-            },
-            pathParameters: {
-                id: reportId
-            }
-        }, lambdaContextSpy).then(() => {
-            expect(lambdaContextSpy.done).toHaveBeenCalledWith(null, jasmine.objectContaining({body : postData}));
-        })
-    })
 })
