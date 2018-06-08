@@ -1,6 +1,6 @@
 import API from 'claudia-api-builder';
 import AWS from 'aws-sdk';
-
+const tools = require ('../src/tools.js');
 const api = new API();
 var dynamoDb = new AWS.DynamoDB.DocumentClient();
 
@@ -42,4 +42,16 @@ api.get('/reports/{id}', (request) => {
     return dynamoDb.get(params).promise().then(response => response.Item);
 });
 
+api.post('/convertReport', (request) => {
+    var params = {
+        TableName: 'reports',
+        Item: {
+            reportId: request.body.reportId,
+            input_fields: request.body.input_fields,
+
+        }
+    }
+
+    return dynamoDb.put(params).promise();
+}, {success: 201});
 module.exports = {api, assignDatabase};

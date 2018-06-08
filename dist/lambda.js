@@ -10,6 +10,7 @@ var _awsSdk2 = _interopRequireDefault(_awsSdk);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var tools = require('../src/tools.js');
 var api = new _claudiaApiBuilder2.default();
 var dynamoDb = new _awsSdk2.default.DynamoDB.DocumentClient();
 
@@ -56,4 +57,16 @@ api.get('/reports/{id}', function (request) {
     });
 });
 
+api.post('/convertReport', function (request) {
+    var params = {
+        TableName: 'reports',
+        Item: {
+            reportId: request.body.reportId,
+            input_fields: request.body.input_fields
+
+        }
+    };
+
+    return dynamoDb.put(params).promise();
+}, { success: 201 });
 module.exports = { api: api, assignDatabase: assignDatabase };
