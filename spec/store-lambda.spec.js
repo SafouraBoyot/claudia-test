@@ -14,7 +14,7 @@ describe("Store Lambda", function () {
         const reportId = tools.uuidv4()
         const postData = {
             reportId: reportId,
-            input_fields: "input-fields",
+            input_fields: "input-fields"
         }
 
         const options = {

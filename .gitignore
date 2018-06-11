@@ -4,6 +4,8 @@
 *.pdf
 .pdf
 ./pdf_test_file/*.pdf
+*.db
+./database/dir/*.db
 
 ### Intellij ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and Webstorm

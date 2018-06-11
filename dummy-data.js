@@ -1,4 +1,5 @@
 module.exports = {
+    "reportId": "",
     "input_fields": {
         "s1-q1": {
             "val": 10,

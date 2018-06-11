@@ -11,6 +11,8 @@ var _awsSdk2 = _interopRequireDefault(_awsSdk);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var tools = require('../src/tools.js');
+var converter = require('../src/html-to-pdf-converter');
+
 var api = new _claudiaApiBuilder2.default();
 var dynamoDb = new _awsSdk2.default.DynamoDB.DocumentClient();
 
@@ -57,16 +59,16 @@ api.get('/reports/{id}', function (request) {
     });
 });
 
-api.post('/convertReport', function (request) {
+api.post('/convertToPdf', function (request) {
+    var reportId = request.body.reportId;
     var params = {
         TableName: 'reports',
         Item: {
-            reportId: request.body.reportId,
+            reportId: reportId,
             input_fields: request.body.input_fields
 
         }
-    };
-
-    return dynamoDb.put(params).promise();
+        // converter.htmlToPdf(html,reportId); Todo : create html file based on the input_fields
+    };return dynamoDb.put(params).promise();
 }, { success: 201 });
 module.exports = { api: api, assignDatabase: assignDatabase };
