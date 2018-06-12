@@ -1,0 +1,1 @@
+var page_padding = ' py-3 px-2';
