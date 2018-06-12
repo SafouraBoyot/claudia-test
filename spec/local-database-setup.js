@@ -7,6 +7,7 @@ AWS.config.update({
 
 var docClient = new AWS.DynamoDB.DocumentClient();
 ddb = new AWS.DynamoDB({apiVersion: '2012-10-08'});
+const tableName = "reports";
 var tableParams = {
     AttributeDefinitions: [
         {
@@ -24,14 +25,14 @@ var tableParams = {
         ReadCapacityUnits: 1,
         WriteCapacityUnits: 1
     },
-    TableName: 'reports',
+    TableName: tableName,
     StreamSpecification: {
         StreamEnabled: false
     }
 };
 
 var params = {
-    TableName: 'reports',
+    TableName: tableName,
     Item: {
         reportId: "1234",
         input_fields: "input-fields",
@@ -39,11 +40,11 @@ var params = {
     }
 };
 
-
 console.log("creating a new Table...");
-const createTable = ddb.createTable(tableParams, function (err, data) {
+ddb.createTable(tableParams, function (err, data) {
     if (err) {
         console.log("Error", err);
+
     } else {
         console.log("Success", data);
         console.log("Adding a new item...");
@@ -57,5 +58,3 @@ const createTable = ddb.createTable(tableParams, function (err, data) {
         });
     }
 });
-
-module.exports = { createTable, deleteTable }

@@ -44,7 +44,7 @@ api.get('/reports/{id}', (request) => {
     return dynamoDb.get(params).promise().then(response => response.Item);
 });
 
-api.post('/convertReport', (request) => {
+api.post('/convertToPdf', (request) => {
     const reportId =request.body.reportId;
     var params = {
         TableName: 'reports',

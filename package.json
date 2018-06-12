@@ -9,8 +9,11 @@
     "updateDev": "npm run transpile && claudia update --version dev --region us-east-1 --api-module dist/lambda --policies policy",
     "createProd": "npm run transpile && claudia create --version latest --region us-east-1 --api-module dist/lambda --policies policy",
     "updateProd": "npm run transpile && claudia update --version latest --region us-east-1 --api-module dist/lambda --policies policy",
+    "runLocalDynamoDb": "node node_modules/local-dynamo/bin/launch_local_dynamo.js --database_dir=database/dir --port=4567",
+    "setupLocalDynamoDb": "node spec/local-database-setup.js",
     "watch": "./node_modules/.bin/nodemon  ./node_modules/.bin/jasmine",
     "test": "babel-node ./node_modules/.bin/jasmine"
+
   },
   "files": [
     "dist"
